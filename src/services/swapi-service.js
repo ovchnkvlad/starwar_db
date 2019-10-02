@@ -11,12 +11,12 @@ export default class SwapiService {
     }
     return await res.json();
   }
-
+ 
   async getAllPeople() {
     const res = await this.getResource(`/people/`);
     return res.results.map(this._transformPerson);
   }
-
+ 
   async getPerson(id) {
     const person = await this.getResource(`/people/${id}/`);
     return this._transformPerson(person);
@@ -44,18 +44,18 @@ export default class SwapiService {
   }
   _extractId(item) {
     const idRegExp = /\/([0-9]*)\/$/;
-    const id = item.url.match(idRegExp)[1]; 
+    return item.url.match(idRegExp)[1];
   }
-  _transformPlanet(planet){
-  return {
-    id:this._extractId(planet),
-    name: planet.name,
-    population: planet.population,
-    rotationPeriod: planet.rotation_period,
-    diameter: planet.diameter
+  _transformPlanet = (planet) => {
+    return {
+      id:this._extractId(planet),
+      name: planet.name,
+      population: planet.population,
+      rotationPeriod: planet.rotation_period,
+      diameter: planet.diameter
+    }
   }
-  }
-  _transformPerson(person){
+  _transformPerson = (person) => {
     return {
       id:this._extractId(person),
       name: person.name,
@@ -64,7 +64,7 @@ export default class SwapiService {
       eyeColor: person.eyeColor
     }
     }
-    _transformStarship(starship){
+    _transformStarship = (starship) => {
       return {
        id:this._extractId(starship),
        name: starship.name,
